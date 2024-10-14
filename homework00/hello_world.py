@@ -1,2 +1,10 @@
+"""
+Executes function that returns text message.
+"""
+
+
 def text():
-    return message
+    """
+    Declares and returns text message.
+    """
+    return "message"
