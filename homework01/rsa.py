@@ -14,15 +14,13 @@ def is_prime(n: int) -> bool:
     """
 
     # PUT YOUR CODE HERE
-    def is_prime(n: int) -> bool:
-        if n <= 1:
+    if n <= 1:
+        return False
+    for i in range(2, int(n * 0.5) + 1):
+        if n % i == 0:
             return False
-        for i in range(2, int(n * 0.5) + 1):
-            if n % i == 0:
-                return False
-        return True
-
-    pass
+    return True
+pass
 
 
 def gcd(a: int, b: int) -> int:
@@ -34,34 +32,9 @@ def gcd(a: int, b: int) -> int:
     1
     """
     # PUT YOUR CODE HERE
-    d = 0
-    x1 = 1
-    x2 = 0
-    y1 = 0
-    temp_phi = phi
-
-    while e > 0:
-        temp1 = temp_phi // e
-        temp2 = temp_phi - temp1 * e
-        temp_phi = e
-        e = temp2
-
-        x = x2 - temp1 * x1
-        y = d - temp1 * y1
-
-        x2 = x1
-        x1 = x
-        d = y1
-        y1 = y
-
-    if temp_phi == 1:
-        return d + phi
-    else:
-        return -1
     while b:
         a, b = b, a % b
     return a
-    pass
 
 
 def multiplicative_inverse(e: int, phi: int) -> int:
@@ -72,6 +45,14 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     23
     """
     # PUT YOUR CODE HERE
+    phi0 = phi
+    x0 = 0
+    x1 = 1
+    while e > 1:
+        t = e // phi
+        phi, e = e % phi, phi
+        x0, x1 = x1 - t * x0, x0
+    return x1 + phi0 if x1 < 0 else x1
     pass
 
 
