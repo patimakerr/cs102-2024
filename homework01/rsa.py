@@ -32,6 +32,30 @@ def gcd(a: int, b: int) -> int:
     1
     """
     # PUT YOUR CODE HERE
+    d = 0
+    x1 = 1
+    x2 = 0
+    y1 = 0
+    temp_phi = phi
+
+    while e > 0:
+        temp1 = temp_phi // e
+        temp2 = temp_phi - temp1 * e
+        temp_phi = e
+        e = temp2
+
+        x = x2 - temp1 * x1
+        y = d - temp1 * y1
+
+        x2 = x1
+        x1 = x
+        d = y1
+        y1 = y
+
+    if temp_phi == 1:
+        return d + phi
+    else:
+        return -1
     while b:
         a, b = b, a % b
     return a
