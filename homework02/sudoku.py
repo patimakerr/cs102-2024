@@ -1,11 +1,12 @@
 import pathlib
+import random
 import typing as tp
 
 T = tp.TypeVar("T")
 
 
 def read_sudoku(path: tp.Union[str, pathlib.Path]) -> tp.List[tp.List[str]]:
-    """ Прочитать Судоку из указанного файла """
+    """Прочитать Судоку из указанного файла"""
     path = pathlib.Path(path)
     with path.open() as f:
         puzzle = f.read()
@@ -19,7 +20,7 @@ def create_grid(puzzle: str) -> tp.List[tp.List[str]]:
 
 
 def display(grid: tp.List[tp.List[str]]) -> None:
-    """Вывод Судоку """
+    """Вывод Судоку"""
     width = 2
     line = "+".join(["-" * (width * 3)] * 3)
     for row in range(9):
@@ -41,7 +42,10 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    pass
+    result = []
+    for i in range(0, len(values), n):
+        result.append(values[i:i + n])
+    return result
 
 
 def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -65,8 +69,8 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    col = pos[1]
-    return [grid[row][col] for row in range(len(grid))]
+    col_index = pos[1]
+    return [row[col_index] for row in grid]
 
 
 def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -79,15 +83,10 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    row = pos[0]
-    col = pos[1]
-    row_start = (row // 3) * 3
-    col_start = (col // 3) * 3
-    block = []
-    for i in range(row_start, row_start + 3):
-        for j in range(col_start, col_start + 3):
-            block.append(grid[i][j])
-    return block
+    row, col = pos
+    block_row = 3 * (row // 3)
+    block_col = 3 * (col // 3)
+    return [grid[r][c] for r in range(block_row, block_row + 3) for c in range(block_col, block_col + 3)]
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
@@ -99,7 +98,11 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     >>> find_empty_positions([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']])
     (2, 0)
     """
-    pass
+    for i, row in enumerate(grid):
+        for j, val in enumerate(row):
+            if val == ".":
+                return (i, j)
+    return None
 
 
 def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.Set[str]:
@@ -112,7 +115,22 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     >>> values == {'2', '5', '9'}
     True
     """
-    pass
+    row, col = pos
+    possible_values = set(range(1, 10))
+    for num in grid[row]:
+        if num in possible_values:
+            possible_values.remove(num)
+    for i in range(len(grid)):
+        if grid[i][col] in possible_values:
+            possible_values.remove(grid[i][col])
+    row_start = (row // 3) * 3
+    col_start = (col // 3) * 3
+    for i in range(row_start, row_start + 3):
+        for j in range(col_start, col_start + 3):
+            if grid[i][j] in possible_values:
+                possible_values.remove(grid[i][j])
+
+    return set(map(str, possible_values))
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
@@ -170,18 +188,19 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """ Если решение solution верно, то вернуть True, в противном случае False """
     # TODO: Add doctests with bad puzzles
-    grid = read_sudoku("sudoku_puzzle.txt")
-    solution = solve(grid)
-    if solution:
-        is_valid_solution = check_solution(solution)
-        if is_valid_solution:
-            print("Решение верно!")
-            for row in solution:
-                print(row)
-        else:
-            print("Решение некорректно!")
-    else:
-        print("Решение не найдено.")
+    for i in range(9):
+        row = solution[i]
+        if set(row) != set("123456789"):
+            return False
+        col = [solution[j][i] for j in range(9)]
+        if set(col) != set("123456789"):
+            return False
+    for block_row in range(0, 9, 3):
+        for block_col in range(0, 9, 3):
+            block = [solution[r][c] for r in range(block_row, block_row + 3) for c in range(block_col, block_col + 3)]
+            if set(block) != set("123456789"):
+                return False
+    return True
 
 
 def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
@@ -252,7 +271,7 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     grid = generate_sudoku(40)
     print(sum(1 for row in grid for e in row if e == '.'))  # Должно быть 41
     solution = solve(grid)
-    print(check_solution(solution))  # Должно быть True
+    print(check_solution(solution))
 
 
 if __name__ == "__main__":
