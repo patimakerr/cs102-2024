@@ -53,6 +53,8 @@ def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     >>> get_row([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (2, 0))
     ['.', '8', '9']
     """
+    row = pos[0]
+    return grid[row]
     pass
 
 
@@ -65,6 +67,8 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
+    col = pos[1]
+    return [grid[row][col] for row in range(len(grid))]
     pass
 
 
@@ -78,6 +82,15 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
+    row = pos[0]
+    col = pos[1]
+    row_start = (row // 3) * 3
+    col_start = (col // 3) * 3
+    block = []
+    for i in range(row_start, row_start + 3):
+        for j in range(col_start, col_start + 3):
+            block.append(grid[i][j])
+    return block
     pass
 
 
@@ -118,12 +131,62 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
     >>> solve(grid)
     [['5', '3', '4', '6', '7', '8', '9', '1', '2'], ['6', '7', '2', '1', '9', '5', '3', '4', '8'], ['1', '9', '8', '3', '4', '2', '5', '6', '7'], ['8', '5', '9', '7', '6', '1', '4', '2', '3'], ['4', '2', '6', '8', '5', '3', '7', '9', '1'], ['7', '1', '3', '9', '2', '4', '8', '5', '6'], ['9', '6', '1', '5', '3', '7', '2', '8', '4'], ['2', '8', '7', '4', '1', '9', '6', '3', '5'], ['3', '4', '5', '2', '8', '6', '1', '7', '9']]
     """
+
+    def find_empty(grid):
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == '.':
+                    return (i, j)
+        return None
+
+    def is_valid(grid, num, pos):
+        if num in grid[pos[0]]:
+            return False
+        if num in [grid[i][pos[1]] for i in range(len(grid))]:
+            return False
+        row_start = (pos[0] // 3) * 3
+        col_start = (pos[1] // 3) * 3
+        for i in range(row_start, row_start + 3):
+            for j in range(col_start, col_start + 3):
+                if grid[i][j] == num:
+                    return False
+        return True
+
+    def solve():
+        empty = find_empty(grid)
+        if not empty:
+            return True
+        row, col = empty
+        for num in range(1, 10):
+            if is_valid(grid, str(num), (row, col)):
+                grid[row][col] = str(num)
+                if solve():
+                    return True
+                grid[row][col] = '.'
+
+        return False
+    if solve():
+        return grid
+    else:
+        return None
     pass
 
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """ Если решение solution верно, то вернуть True, в противном случае False """
     # TODO: Add doctests with bad puzzles
+    grid = read_sudoku("sudoku_puzzle.txt")
+    solution = solve(grid)
+    if solution:
+        is_valid_solution = check_solution(solution)
+        if is_valid_solution:
+            print("Решение верно!")
+            for row in solution:
+                print(row)
+        else:
+            print("Решение некорректно!")
+    else:
+        print("Решение не найдено.")
     pass
 
 
@@ -148,6 +211,54 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
+    import typing as tp
+    import random
+        def is_valid(grid, num, pos):
+            if num in grid[pos[0]]:
+                return False
+            if num in [grid[i][pos[1]] for i in range(len(grid))]:
+                return False
+            row_start = (pos[0] // 3) * 3
+            col_start = (pos[1] // 3) * 3
+            for i in range(row_start, row_start + 3):
+                for j in range(col_start, col_start + 3):
+                    if grid[i][j] == num:
+                        return False
+            return True
+
+        def fill_grid(grid, count):
+            empty = find_empty(grid)
+            if not empty:
+                return True
+            row, col = empty
+            numbers = [str(i) for i in range(1, 10)]
+            random.shuffle(numbers)
+            for num in numbers:
+                if is_valid(grid, num, (row, col)):
+                    grid[row][col] = num
+                    if fill_grid(grid, count - 1):
+                        return True
+                    grid[row][col] = '.'
+            return False
+
+        def find_empty(grid):
+            for i in range(len(grid)):
+                for j in range(len(grid[0])):
+                    if grid[i][j] == '.':
+                        return (i, j)
+            return None
+
+        grid = [['.' for _ in range(9)] for _ in range(9)]
+        if fill_grid(grid, 81 - N):
+            return grid
+        else:
+            return [['.' for _ in range(9)] for _ in range(9)]
+
+    # Пример использования:
+    grid = generate_sudoku(40)
+    print(sum(1 for row in grid for e in row if e == '.'))  # Должно быть 41
+    solution = solve(grid)
+    print(check_solution(solution))  # Должно быть True
     pass
 
 
