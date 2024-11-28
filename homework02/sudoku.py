@@ -1,4 +1,5 @@
 import pathlib
+import random
 import typing as tp
 
 T = tp.TypeVar("T")
@@ -41,7 +42,10 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    pass
+    result = []
+    for i in range(0, len(values), n):
+        result.append(values[i:i + n])
+    return result
 
 
 def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -99,7 +103,11 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     >>> find_empty_positions([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']])
     (2, 0)
     """
-    pass
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j] == '.':
+                return (i, j)
+    return None
 
 
 def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.Set[str]:
@@ -112,7 +120,22 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     >>> values == {'2', '5', '9'}
     True
     """
-    pass
+    row, col = pos
+    possible_values = set(range(1, 10))
+    for num in grid[row]:
+        if num in possible_values:
+            possible_values.remove(num)
+    for i in range(len(grid)):
+        if grid[i][col] in possible_values:
+            possible_values.remove(grid[i][col])
+    row_start = (row // 3) * 3
+    col_start = (col // 3) * 3
+    for i in range(row_start, row_start + 3):
+        for j in range(col_start, col_start + 3):
+            if grid[i][j] in possible_values:
+                possible_values.remove(grid[i][j])
+
+    return set(map(str, possible_values))
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
@@ -252,7 +275,7 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     grid = generate_sudoku(40)
     print(sum(1 for row in grid for e in row if e == '.'))  # Должно быть 41
     solution = solve(grid)
-    print(check_solution(solution))  # Должно быть True
+    print(check_solution(solution))
 
 
 if __name__ == "__main__":
