@@ -55,8 +55,6 @@ def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     """
     row = pos[0]
     return grid[row]
-    pass
-
 
 def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
     """Возвращает все значения для номера столбца, указанного в pos
@@ -69,7 +67,6 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     """
     col = pos[1]
     return [grid[row][col] for row in range(len(grid))]
-    pass
 
 
 def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -91,7 +88,6 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
         for j in range(col_start, col_start + 3):
             block.append(grid[i][j])
     return block
-    pass
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
@@ -169,7 +165,6 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
         return grid
     else:
         return None
-    pass
 
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
@@ -187,7 +182,6 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
             print("Решение некорректно!")
     else:
         print("Решение не найдено.")
-    pass
 
 
 def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
@@ -259,7 +253,6 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     print(sum(1 for row in grid for e in row if e == '.'))  # Должно быть 41
     solution = solve(grid)
     print(check_solution(solution))  # Должно быть True
-    pass
 
 
 if __name__ == "__main__":
