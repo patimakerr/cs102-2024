@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86e1d791-b586-4a84-b109-6b32fc949c84" name="Changes" comment="z" />
+    <list default="true" id="86e1d791-b586-4a84-b109-6b32fc949c84" name="Changes" comment="z">
+      <change afterPath="$PROJECT_DIR$/../homework03/.idea/homework03.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../homework03/maze.py" beforeDir="false" afterPath="$PROJECT_DIR$/../homework03/maze.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,16 +22,16 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "history": [
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
     {
-      "state": "OPEN",
-      "assignee": "patimakerr",
-      "reviewState": "NO_REVIEW"
+      &quot;state&quot;: &quot;OPEN&quot;,
+      &quot;assignee&quot;: &quot;patimakerr&quot;,
+      &quot;reviewState&quot;: &quot;NO_REVIEW&quot;
     }
   ],
-  "lastFilter": {}
-}]]></component>
+  &quot;lastFilter&quot;: {}
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/patimakerr/cs102-2024.git&quot;,
@@ -60,6 +64,7 @@
     "Python tests.Python tests for test_vigenere.VigenereTestCase.test_decrypt.executor": "Run",
     "Python tests.Python tests for test_vigenere.VigenereTestCase.test_randomized.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "homework02",
     "last_opened_file_path": "C:/Users/ASUS/cs102-2024/homework02",
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
