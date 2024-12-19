@@ -115,22 +115,15 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     >>> values == {'2', '5', '9'}
     True
     """
-    row, col = pos
-    possible_values = set(range(1, 10))
-    for num in grid[row]:
-        if num in possible_values:
-            possible_values.remove(num)
-    for i in range(len(grid)):
-        if grid[i][col] in possible_values:
-            possible_values.remove(grid[i][col])
-    row_start = (row // 3) * 3
-    col_start = (col // 3) * 3
-    for i in range(row_start, row_start + 3):
-        for j in range(col_start, col_start + 3):
-            if grid[i][j] in possible_values:
-                possible_values.remove(grid[i][j])
+    all = {"1", "2", "3", "4", "5", "6", "7", "8", "9"}
 
-    return set(map(str, possible_values))
+    var1 = get_block(grid, pos)
+    var2 = get_col(grid, pos)
+    var3 = get_row(grid, pos)
+    all = all.difference(var1)
+    all = all.difference(var2)
+    all = all.difference(var3)
+    return all
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
@@ -205,6 +198,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
 
 def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     """Генерация судоку заполненного на N элементов
+
     >>> grid = generate_sudoku(40)
     >>> sum(1 for row in grid for e in row if e == '.')
     41
@@ -224,54 +218,21 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    import typing as tp
-    import random
-        def is_valid(grid, num, pos):
-            if num in grid[pos[0]]:
-                return False
-            if num in [grid[i][pos[1]] for i in range(len(grid))]:
-                return False
-            row_start = (pos[0] // 3) * 3
-            col_start = (pos[1] // 3) * 3
-            for i in range(row_start, row_start + 3):
-                for j in range(col_start, col_start + 3):
-                    if grid[i][j] == num:
-                        return False
-            return True
-
-        def fill_grid(grid, count):
-            empty = find_empty(grid)
-            if not empty:
-                return True
-            row, col = empty
-            numbers = [str(i) for i in range(1, 10)]
-            random.shuffle(numbers)
-            for num in numbers:
-                if is_valid(grid, num, (row, col)):
-                    grid[row][col] = num
-                    if fill_grid(grid, count - 1):
-                        return True
-                    grid[row][col] = '.'
-            return False
-
-        def find_empty(grid):
-            for i in range(len(grid)):
-                for j in range(len(grid[0])):
-                    if grid[i][j] == '.':
-                        return (i, j)
-            return None
-
-        grid = [['.' for _ in range(9)] for _ in range(9)]
-        if fill_grid(grid, 81 - N):
-            return grid
-        else:
-            return [['.' for _ in range(9)] for _ in range(9)]
-
-    # Пример использования:
-    grid = generate_sudoku(40)
-    print(sum(1 for row in grid for e in row if e == '.'))  # Должно быть 41
-    solution = solve(grid)
-    print(check_solution(solution))
+    mas: tp.List[tp.List[str]] = [["."] * 9 for _ in range(9)]
+    solved_grid = solve(mas)
+    if solved_grid is None:
+        raise ValueError("Sudoku puzzle could not be solved")
+    mas = solved_grid
+    if N < 81:
+        k = 81 - N
+    else:
+        k = 0
+    for _ in range(k):
+        t, p = random.randint(0, 8), random.randint(0, 8)
+        while mas[t][p] == ".":
+            t, p = random.randint(0, 8), random.randint(0, 8)
+        mas[t][p] = "."
+    return mas
 
 
 if __name__ == "__main__":
