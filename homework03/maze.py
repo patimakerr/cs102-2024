@@ -29,7 +29,6 @@ def remove_wall(
         grid[x][y + 1] = " "
     elif 0 <= x - 2 < rows and 0 <= y < cols:
         grid[x - 1][y] = " "
-
     return grid
 
 
@@ -79,11 +78,10 @@ def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
     :param grid:
     :return:
     """
+
     exits = []
-    for row_index, row in enumerate(grid):
-        for col_index, cell in enumerate(row):
-            if cell == 'X':
-                exits.append((row_index, col_index))
+    if grid:
+        exits = [(i, j) for i, row in enumerate(grid) for j, cell in enumerate(row) if cell == "X"]
     return exits
 
 def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str, int]]]:
