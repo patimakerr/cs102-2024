@@ -114,15 +114,19 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     >>> values == {'2', '5', '9'}
     True
     """
-    all = {"1", "2", "3", "4", "5", "6", "7", "8", "9"}
+    used = [0] * 10
+    for val in get_col(grid, pos):
+        if val != ".":
+            used[int(val)] = 1
+    for val in get_row(grid, pos):
+        if val != ".":
+            used[int(val)] = 1
+    for val in get_block(grid, pos):
+        if val != ".":
+            used[int(val)] = 1
 
-    var1 = get_block(grid, pos)
-    var2 = get_col(grid, pos)
-    var3 = get_row(grid, pos)
-    all = all.difference(var1)
-    all = all.difference(var2)
-    all = all.difference(var3)
-    return all
+    values = {str(i) for i in range(1, 10) if used[i] == 0}
+    return values
 
 
 def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
@@ -155,18 +159,14 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """ Если решение solution верно, то вернуть True, в противном случае False """
     # TODO: Add doctests with bad puzzles
     for i in range(9):
-        row = solution[i]
-        if set(row) != set("123456789"):
+        if not (set(solution[i]) == set("123456789") and set(row[i] for row in solution) == set("123456789")):
             return False
-        col = [solution[j][i] for j in range(9)]
-        if set(col) != set("123456789"):
-            return False
-    for block_row in range(0, 9, 3):
-        for block_col in range(0, 9, 3):
-            block = [solution[r][c] for r in range(block_row, block_row + 3) for c in range(block_col, block_col + 3)]
-            if set(block) != set("123456789"):
-                return False
-    return True
+    return all(
+        set(solution[r // 3 * 3 + i][c // 3 * 3 + j] for i in range(3) for j in range(3)) == set("123456789")
+        for r in range(9)
+        for c in range(9)
+        if (r % 3 == 0 and c % 3 == 0)
+    )
 
 
 def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
