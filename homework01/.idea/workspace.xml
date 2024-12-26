@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86e1d791-b586-4a84-b109-6b32fc949c84" name="Changes" comment="z" />
+    <list default="true" id="86e1d791-b586-4a84-b109-6b32fc949c84" name="Changes" comment="z">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../homework02/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../homework02/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../homework02/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../homework02/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../homework03/maze_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/../homework03/maze_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../homework03/test_maze.py" beforeDir="false" afterPath="$PROJECT_DIR$/../homework03/test_maze.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,19 +58,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests for test_caesar.CaesarTestCase.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_rsa.RSATestCase.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_vigenere.VigenereTestCase.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_vigenere.VigenereTestCase.test_decrypt.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_vigenere.VigenereTestCase.test_randomized.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;homework02&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ASUS/cs102-2024/homework02&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests for test_caesar.CaesarTestCase.executor": "Run",
+    "Python tests.Python tests for test_rsa.RSATestCase.executor": "Run",
+    "Python tests.Python tests for test_vigenere.VigenereTestCase.executor": "Run",
+    "Python tests.Python tests for test_vigenere.VigenereTestCase.test_decrypt.executor": "Run",
+    "Python tests.Python tests for test_vigenere.VigenereTestCase.test_randomized.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Rebasing Homework03",
+    "last_opened_file_path": "C:/Users/ASUS/cs102-2024/homework02",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Python tests.Python tests for test_vigenere.VigenereTestCase.test_randomized">
     <configuration name="Python tests for test_caesar.CaesarTestCase" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="homework01" />
@@ -183,15 +189,7 @@
       <option name="project" value="LOCAL" />
       <updated>1732786262716</updated>
     </task>
-    <task id="LOCAL-00003" summary="z">
-      <option name="closed" value="true" />
-      <created>1735211269890</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1735211269890</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
