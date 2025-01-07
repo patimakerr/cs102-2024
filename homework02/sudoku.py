@@ -18,7 +18,6 @@ def create_grid(puzzle: str) -> tp.List[tp.List[str]]:
     grid = group(digits, 9)
     return grid
 
-
 def display(grid: tp.List[tp.List[str]]) -> None:
     """Вывод Судоку"""
     width = 2

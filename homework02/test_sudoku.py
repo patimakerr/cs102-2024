@@ -3,7 +3,6 @@ import unittest
 import sudoku
 
 
-
 class SudokuTestCase(unittest.TestCase):
     def test_group(self):
         values = [1, 2, 3, 4]
