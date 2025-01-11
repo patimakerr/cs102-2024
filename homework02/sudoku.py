@@ -182,17 +182,25 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
 
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
-    """ Если решение solution верно, то вернуть True, в противном случае False """
+    """Если решение solution верно, то вернуть True, в противном случае False"""
     # TODO: Add doctests with bad puzzles
-    for i in range(9):
-        if not (set(solution[i]) == set("123456789") and set(row[i] for row in solution) == set("123456789")):
+    for i in range(len(solution)):
+        if type(solution[i]) != list:
             return False
-    return all(
-        set(solution[r // 3 * 3 + i][c // 3 * 3 + j] for i in range(3) for j in range(3)) == set("123456789")
-        for r in range(9)
-        for c in range(9)
-        if (r % 3 == 0 and c % 3 == 0)
-    )
+
+        for j in range(len(solution)):
+            if solution[i][j] == ".":
+                return False
+            pos = (i, j)
+            l1 = list(get_row(solution, pos))
+            l2 = list(get_col(solution, pos))
+            l3 = list(get_block(solution, pos))
+            s1 = set(l1)
+            s2 = set(l2)
+            s3 = set(l3)
+            if len(s1) != len(l1) or len(s2) != len(l2) or len(s3) != len(l3):
+                return False
+    return True
 
 
 def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
