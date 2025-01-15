@@ -65,6 +65,8 @@ def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> L
         x_out, y_out = rows - 1, 1
     grid[x_in][y_in], grid[x_out][y_out] = "X", "X"
     return grid
+
+
 def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
     """
     :param grid:
@@ -201,6 +203,8 @@ def add_path_to_grid(
                 if (i, j) in path:
                     grid[i][j] = "X"
     return grid
+
+
 if __name__ == "__main__":
     print(pd.DataFrame(bin_tree_maze(15, 15)))
     GRID = bin_tree_maze(15, 15)
