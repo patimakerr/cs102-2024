@@ -9,7 +9,7 @@ class Console(UI):
         super().__init__(life)
 
     def draw_borders(self, screen) -> None:
-        """ Отобразить рамку. """
+        """Отобразить рамку."""
         screen.border(0)
 
     def draw_grid(self, screen) -> None:

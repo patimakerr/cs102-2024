@@ -43,6 +43,7 @@ class GUI(UI):
                         pygame.draw.line(
                             self.screen, pygame.Color("white"), (j * self.cell_size, x), ((j + 1) * self.cell_size, x)
                         )
+
     def run(self) -> None:
         # Copy from previous assignment
         pygame.init()
