@@ -50,7 +50,6 @@ class GUI(UI):
         clock = pygame.time.Clock()
         pygame.display.set_caption("Game of Life")
         self.screen.fill(pygame.Color("white"))
-
         running = True
         while running:
             for event in pygame.event.get():

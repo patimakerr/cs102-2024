@@ -14,7 +14,7 @@ class Console(UI):
 
     def draw_grid(self, screen) -> None:
         height, width = screen.getmaxyx()
-        """ Отобразить состояние клеток """
+        """ Отобразить состояние клеток. """
         for i, row in enumerate(self.life.curr_generation):
             for j, val in enumerate(row):
                 if 0 < i < height - 1 and 0 < j < width - 1:
